@@ -3,6 +3,7 @@ import { getTherapySession } from './api.js';
 const app = document.getElementById('app');
 let currentLoss = '';
 let currentTherapy = null;
+let currentWalletInfo = '';
 
 function renderHero() {
   app.innerHTML = `
@@ -66,22 +67,43 @@ function renderHero() {
     </section>
   `;
 
-  document.getElementById('form').addEventListener('submit', (e) => {
+  document.getElementById('form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const raw = document.getElementById('loss').value.trim();
     if (!raw) return;
 
-    // Detect if it looks like a Solana address (base58, 32-44 chars) vs a dollar amount
     const isSolAddr = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(raw);
+
     if (isSolAddr) {
-      currentLoss = 'fetching from wallet…';
+      renderLoading('Pulling wallet history from the chain…', 'Please allow a moment for your mistakes to load.');
+      try {
+        const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        if (isLocal) {
+          await new Promise(r => setTimeout(r, 1800));
+          currentLoss = '-$14,200';
+          currentWalletInfo = '7d realized PnL: -$14,200, win rate: 23%, 42 trades';
+        } else {
+          const wRes = await fetch(`/api/wallet?address=${encodeURIComponent(raw)}`);
+          const wData = await wRes.json();
+          if (!wRes.ok || !wData.lossString) {
+            renderWalletError();
+            return;
+          }
+          currentLoss = wData.lossString;
+          currentWalletInfo = wData.summary || '';
+        }
+      } catch (err) {
+        renderWalletError();
+        return;
+      }
     } else {
       const digits = raw.replace(/[^0-9.]/g, '');
       currentLoss = digits ? '$' + parseFloat(digits).toLocaleString() : raw;
+      currentWalletInfo = '';
+      renderLoading('Reviewing your financial decisions…', 'Please allow a moment for judgment to fully form.');
     }
 
-    renderLoading();
-    getTherapySession(currentLoss).then(data => {
+    getTherapySession(currentLoss, currentWalletInfo).then(data => {
       currentTherapy = data;
       currentLoss = data.loss || currentLoss;
       setTimeout(renderSession, 400);
@@ -89,16 +111,34 @@ function renderHero() {
   });
 }
 
-function renderLoading() {
+function renderLoading(title = 'Reviewing your financial decisions…', sub = 'Please allow a moment for judgment to fully form.') {
   app.innerHTML = `
     <div class="loading-view">
       <div class="spinner-ring"></div>
       <div>
-        <p class="loading-text">Reviewing your financial decisions…</p>
-        <p class="loading-sub">Please allow a moment for judgment to fully form.</p>
+        <p class="loading-text">${title}</p>
+        <p class="loading-sub">${sub}</p>
       </div>
     </div>
   `;
+}
+
+function renderWalletError() {
+  app.innerHTML = `
+    <div class="loading-view">
+      <div style="font-size:2rem">🔍</div>
+      <div>
+        <p class="loading-text">Wallet data unavailable</p>
+        <p class="loading-sub">GMGN couldn't pull data for this address.<br/>Try entering your loss amount manually.</p>
+      </div>
+      <button class="btn-primary" id="back-btn" style="max-width:280px;margin-top:1rem;">← Try Again</button>
+    </div>
+  `;
+  document.getElementById('back-btn').addEventListener('click', () => {
+    currentLoss = '';
+    currentWalletInfo = '';
+    renderHero();
+  });
 }
 
 function renderSession() {
@@ -212,6 +252,7 @@ function renderCertificate() {
   document.getElementById('new-btn').addEventListener('click', () => {
     currentLoss = '';
     currentTherapy = null;
+    currentWalletInfo = '';
     renderHero();
   });
 }

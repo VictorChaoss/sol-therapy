@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { loss } = req.body;
+  const { loss, walletInfo } = req.body;
   if (!loss) return res.status(400).json({ error: 'Missing loss amount' });
 
   const apiKey = process.env.OPENROUTER_API_KEY;
@@ -47,7 +47,7 @@ Respond in plain HTML paragraphs only. No markdown. No headers. No bullet points
         max_tokens: 1024,
         messages: [
           { role: 'system', content: systemPrompt },
-          { role: 'user', content: `I lost ${loss} trading on Solana. I need therapy.` },
+          { role: 'user', content: `I lost ${loss} trading on Solana. I need therapy.${walletInfo ? `\n\nWallet stats: ${walletInfo}` : ''}` },
         ],
       }),
     });
