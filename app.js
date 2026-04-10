@@ -1,5 +1,9 @@
 import { getTherapySession } from './api.js';
 
+// ─── Project placeholders — replace before launch ─────────────────────────────
+const X_HANDLE = 'SolTherapy';          // e.g. 'SolTherapy' → x.com/SolTherapy
+const CONTRACT_ADDRESS = 'TBA';          // paste CA here once deployed
+
 const app = document.getElementById('app');
 let currentLoss = '';
 let currentTherapy = null;
@@ -11,6 +15,12 @@ function renderHero() {
       <div class="logo">
         <div class="logo-dot"></div>
         SolTherapy
+      </div>
+      <div class="header-links">
+        <a class="header-link" href="https://x.com/${X_HANDLE}" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.743l7.735-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          @${X_HANDLE}
+        </a>
       </div>
     </header>
 
@@ -46,6 +56,22 @@ function renderHero() {
         </form>
         <p class="input-hint">Free. Confidential. Mildly condescending.</p>
       </div>
+
+      <div class="token-info-bar">
+        <a class="token-info-item" href="https://x.com/${X_HANDLE}" target="_blank" rel="noopener">
+          <span class="token-info-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.743l7.735-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Follow
+          </span>
+          <span class="token-info-value">@${X_HANDLE}</span>
+        </a>
+        <div class="token-info-divider"></div>
+        <div class="token-info-item" id="ca-copy-trigger">
+          <span class="token-info-label">CA</span>
+          <span class="token-info-value mono" id="ca-text">${CONTRACT_ADDRESS === 'TBA' ? 'TBA — Coming Soon' : CONTRACT_ADDRESS}</span>
+          ${CONTRACT_ADDRESS !== 'TBA' ? '<button class="ca-copy" id="ca-copy">Copy</button>' : ''}
+        </div>
+      </div>
     </section>
 
     <section class="testimonials">
@@ -66,6 +92,17 @@ function renderHero() {
       </div>
     </section>
   `;
+
+  // CA copy button (only exists when CA is not TBA)
+  const caBtn = document.getElementById('ca-copy');
+  if (caBtn) {
+    caBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(CONTRACT_ADDRESS).then(() => {
+        caBtn.textContent = 'Copied!';
+        setTimeout(() => { caBtn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  }
 
   document.getElementById('form').addEventListener('submit', async (e) => {
     e.preventDefault();

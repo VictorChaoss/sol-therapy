@@ -86,9 +86,29 @@ body {
 header {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   padding: 2rem 2rem 0;
 }
+
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-3);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.header-link:hover { color: var(--text); }
 
 .logo {
   display: flex;
@@ -712,4 +732,92 @@ input[type="text"]:focus {
   .testimonial-grid { grid-template-columns: 1fr; }
   .cert-btns { flex-direction: column; }
   .cert-meta-row { grid-template-columns: 1fr; }
+  .token-info-bar { border-radius: var(--r-sm); }
+  .token-info-value { font-size: 0.75rem; }
+}
+
+/* ─── Token Info Bar (X + CA) ────────────────────────────── */
+.token-info-bar {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 560px;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  padding: 0.45rem 0.6rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.token-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  padding: 0.35rem 0.85rem;
+  text-decoration: none;
+  border-radius: 100px;
+  transition: background 0.2s;
+  cursor: default;
+  min-width: 0;
+}
+
+a.token-info-item { cursor: pointer; }
+a.token-info-item:hover { background: rgba(255,255,255,0.05); }
+
+.token-info-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.token-info-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.token-info-value.mono {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.token-info-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--border-2);
+  flex-shrink: 0;
+}
+
+.ca-copy {
+  margin-left: auto;
+  background: rgba(153,69,255,0.15);
+  border: 1px solid rgba(153,69,255,0.3);
+  color: var(--purple-light);
+  border-radius: 100px;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ca-copy:hover {
+  background: rgba(153,69,255,0.25);
+  border-color: rgba(153,69,255,0.5);
 }
