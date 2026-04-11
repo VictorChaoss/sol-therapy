@@ -120,18 +120,10 @@ header {
   color: var(--text-2);
 }
 
-.logo-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 10px var(--green);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.85); }
+.logo-img {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
 }
 
 /* ─── Hero ───────────────────────────────────────────────── */
@@ -499,11 +491,10 @@ input[type="text"]:focus {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 10rem;
-  opacity: 0.025;
-  font-weight: 900;
+  width: 320px;
+  height: 320px;
+  opacity: 0.05;
   pointer-events: none;
-  line-height: 1;
 }
 
 .cert-top-row {
@@ -532,12 +523,8 @@ input[type="text"]:focus {
 
 .cert-seal {
   width: 52px; height: 52px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple), #4a00e0);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
+  border-radius: 8px;
+  object-fit: contain;
   box-shadow: 0 0 20px rgba(153,69,255,0.4);
 }
 

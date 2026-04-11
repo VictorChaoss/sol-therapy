@@ -13,7 +13,7 @@ function renderHero() {
   app.innerHTML = `
     <header>
       <div class="logo">
-        <div class="logo-dot"></div>
+        <img src="logo.png" class="logo-img" alt="SolTherapy Logo" />
         SolTherapy
       </div>
       <div class="header-links">
@@ -216,14 +216,14 @@ function renderCertificate() {
       <div id="cert-card">
         <div class="cert-top-bar"></div>
         <div class="cert-inner">
-          <div class="cert-watermark">Ψ</div>
+          <img src="logo.png" class="cert-watermark" alt="" />
 
           <div class="cert-top-row">
             <div class="cert-issuer">
               Issued by
               <strong>SolTherapy Trauma Center</strong>
             </div>
-            <div class="cert-seal">🩺</div>
+            <img src="logo.png" class="cert-seal" alt="Seal" />
           </div>
 
           <p class="cert-statement">This certifies that the bearer has been clinically diagnosed with</p>
