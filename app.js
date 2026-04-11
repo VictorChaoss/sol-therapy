@@ -91,6 +91,11 @@ function renderHero() {
         </div>
       </div>
     </section>
+
+    <footer class="app-footer">
+      <p>Not real financial or medical advice. Please touch grass.</p>
+      <p class="hotline">Crisis Lifeline: Dial The Suicide And Crisis Lifeline via <strong>988</strong></p>
+    </footer>
   `;
 
   // CA copy button (only exists when CA is not TBA)

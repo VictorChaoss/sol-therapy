@@ -714,6 +714,26 @@ input[type="text"]:focus {
   line-height: 1.5;
 }
 
+/* ─── Footer ─────────────────────────────────────────────── */
+.app-footer {
+  width: 100%;
+  max-width: 680px;
+  text-align: center;
+  padding: 0 1.5rem 4rem;
+  font-size: 0.75rem;
+  color: var(--text-3);
+  margin-top: -1rem;
+}
+
+.hotline {
+  margin-top: 0.6rem;
+  color: rgba(244, 63, 94, 0.8);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
 @media (max-width: 600px) {
   h1 { font-size: 3rem; }
   .testimonial-grid { grid-template-columns: 1fr; }
