@@ -1,7 +1,7 @@
 import { getTherapySession } from './api.js';
 
 // ─── Project placeholders — replace before launch ─────────────────────────────
-const X_HANDLE = 'SolTherapy';          // e.g. 'SolTherapy' → x.com/SolTherapy
+const X_HANDLE = 'soltherapyctc';          // e.g. 'SolTherapy' → x.com/SolTherapy
 const CONTRACT_ADDRESS = 'TBA';          // paste CA here once deployed
 
 const app = document.getElementById('app');
