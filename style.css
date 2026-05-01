@@ -871,3 +871,31 @@ a.token-info-item:hover, .token-info-item.clickable:hover { background: rgba(255
   color: var(--red);
   border-color: var(--red);
 }
+
+.donate-actions {
+  margin-top: 1.8rem;
+  display: flex;
+  justify-content: center;
+}
+
+.charity-content a.btn-donate {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(244, 63, 94, 0.05));
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: rgba(244, 63, 94, 0.9);
+  border-radius: 100px;
+  padding: 0.8rem 1.75rem;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.charity-content a.btn-donate:hover {
+  background: rgba(244, 63, 94, 0.25);
+  border-color: rgba(244, 63, 94, 0.5);
+  transform: translateY(-1px);
+}
