@@ -297,12 +297,59 @@ function renderCertificate() {
     }
   });
 
-  document.getElementById('tweet-btn').addEventListener('click', () => {
+  document.getElementById('tweet-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('tweet-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ &nbsp;Preparing...';
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+
     const { diagnosis } = currentTherapy;
-    const text = encodeURIComponent(
-      `Just got clinically diagnosed with "${diagnosis}" after losing ${currentLoss} on Solana.\n\nFree therapy at soltherapy.io 🩺`
-    );
-    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+    const rawText = `Just got clinically diagnosed with "${diagnosis}" after losing ${currentLoss} on Solana.\n\nFree therapy at soltherapy.io 🩺 @${X_HANDLE}`;
+
+    try {
+      const canvas = await html2canvas(document.getElementById('cert-card'), {
+        backgroundColor: '#09090f',
+        scale: 2,
+        useCORS: true,
+      });
+
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], 'soltherapy-certificate.png', { type: 'image/png' });
+        
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              text: rawText,
+              files: [file]
+            });
+          } catch (err) {
+            console.log('Share canceled or failed', err);
+          }
+        } else {
+          // Desktop fallback: Download it and open Twitter intent
+          const a = document.createElement('a');
+          a.href = canvas.toDataURL('image/png');
+          a.download = 'soltherapy-certificate.png';
+          a.click();
+          
+          const text = encodeURIComponent(rawText + '\n\n(Attach your downloaded certificate below!)');
+          window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+        }
+        
+        btn.innerHTML = originalText;
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+      });
+    } catch (err) {
+      // Fallback if canvas generation fails
+      const text = encodeURIComponent(rawText);
+      window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+      
+      btn.innerHTML = originalText;
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+    }
   });
 
   document.getElementById('new-btn').addEventListener('click', () => {
