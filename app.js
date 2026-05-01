@@ -66,11 +66,6 @@ function renderHero() {
           <span class="token-info-value">@${X_HANDLE}</span>
         </a>
         <div class="token-info-divider"></div>
-        <a class="token-info-item clickable" id="landing-share-btn">
-          <span class="token-info-label">Share</span>
-          <span class="token-info-value">Post on X</span>
-        </a>
-        <div class="token-info-divider"></div>
         <div class="token-info-item clickable" id="ca-copy-trigger">
           <span class="token-info-label">CA</span>
           <span class="token-info-value mono" id="ca-text">${CONTRACT_ADDRESS === 'TBA' ? 'TBA — Coming Soon' : CONTRACT_ADDRESS}</span>
@@ -128,28 +123,7 @@ function renderHero() {
     });
   }
 
-  // Landing Share button
-  const landingShareBtn = document.getElementById('landing-share-btn');
-  if (landingShareBtn) {
-    landingShareBtn.addEventListener('click', async () => {
-      const shareData = {
-        title: 'SolTherapy',
-        text: `The only therapist who understands crypto trauma.\n\nConfess your bags. Free therapy 🩺 @${X_HANDLE}`,
-        url: 'https://soltherapy.io'
-      };
 
-      if (navigator.canShare && navigator.canShare(shareData)) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          console.log('Share canceled or failed', err);
-        }
-      } else {
-        const text = encodeURIComponent(`${shareData.text}\n\n${shareData.url}`);
-        window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
-      }
-    });
-  }
 
   document.getElementById('form').addEventListener('submit', async (e) => {
     e.preventDefault();
