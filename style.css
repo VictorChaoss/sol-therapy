@@ -771,8 +771,8 @@ input[type="text"]:focus {
   min-width: 0;
 }
 
-a.token-info-item { cursor: pointer; }
-a.token-info-item:hover { background: rgba(255,255,255,0.05); }
+a.token-info-item, .token-info-item.clickable { cursor: pointer; }
+a.token-info-item:hover, .token-info-item.clickable:hover { background: rgba(255,255,255,0.05); }
 
 .token-info-label {
   display: flex;
@@ -808,26 +808,7 @@ a.token-info-item:hover { background: rgba(255,255,255,0.05); }
   flex-shrink: 0;
 }
 
-.ca-copy {
-  margin-left: auto;
-  background: rgba(153,69,255,0.15);
-  border: 1px solid rgba(153,69,255,0.3);
-  color: var(--purple-light);
-  border-radius: 100px;
-  padding: 0.25rem 0.75rem;
-  font-family: var(--font);
-  font-size: 0.72rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
 
-.ca-copy:hover {
-  background: rgba(153,69,255,0.25);
-  border-color: rgba(153,69,255,0.5);
-}
 
 /* ─── Charity Section ────────────────────────────────────── */
 .charity-section {

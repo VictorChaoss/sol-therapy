@@ -66,10 +66,9 @@ function renderHero() {
           <span class="token-info-value">@${X_HANDLE}</span>
         </a>
         <div class="token-info-divider"></div>
-        <div class="token-info-item" id="ca-copy-trigger">
+        <div class="token-info-item clickable" id="ca-copy-trigger">
           <span class="token-info-label">CA</span>
           <span class="token-info-value mono" id="ca-text">${CONTRACT_ADDRESS === 'TBA' ? 'TBA — Coming Soon' : CONTRACT_ADDRESS}</span>
-          ${CONTRACT_ADDRESS !== 'TBA' ? '<button class="ca-copy" id="ca-copy">Copy</button>' : ''}
         </div>
       </div>
     </section>
@@ -106,13 +105,20 @@ function renderHero() {
     </footer>
   `;
 
-  // CA copy button (only exists when CA is not TBA)
-  const caBtn = document.getElementById('ca-copy');
-  if (caBtn) {
-    caBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(CONTRACT_ADDRESS).then(() => {
-        caBtn.textContent = 'Copied!';
-        setTimeout(() => { caBtn.textContent = 'Copy'; }, 1500);
+  // CA copy by clicking the whole item
+  const caTrigger = document.getElementById('ca-copy-trigger');
+  const caText = document.getElementById('ca-text');
+  if (caTrigger) {
+    caTrigger.addEventListener('click', () => {
+      const textToCopy = CONTRACT_ADDRESS === 'TBA' ? 'TBA' : CONTRACT_ADDRESS;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = CONTRACT_ADDRESS === 'TBA' ? 'TBA — Coming Soon' : CONTRACT_ADDRESS;
+        caText.textContent = 'Copied!';
+        caText.style.color = 'var(--green)';
+        setTimeout(() => {
+          caText.textContent = originalText;
+          caText.style.color = '';
+        }, 1500);
       });
     });
   }
