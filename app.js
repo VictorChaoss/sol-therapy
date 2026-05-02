@@ -2,7 +2,7 @@ import { getTherapySession } from './api.js';
 
 // ─── Project placeholders — replace before launch ─────────────────────────────
 const X_HANDLE = 'soltherapyctc';          // e.g. 'SolTherapy' → x.com/SolTherapy
-const CONTRACT_ADDRESS = 'TBA';          // paste CA here once deployed
+const CONTRACT_ADDRESS = 'Dkcry3HSmtYe4b2JoBYveD2yCqT6PftQziVV8fYxpump';          // paste CA here once deployed
 
 const app = document.getElementById('app');
 let currentLoss = '';
